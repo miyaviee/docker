@@ -1,5 +1,7 @@
 FROM debian
 
+RUN echo 'deb http://ftp.jp.debian.org/debian/ jessie main contrib non-free' > /etc/apt/sources.list
+
 RUN apt-get update \
 && apt-get -y upgrade \
 && apt-get -y install ssh locales vim task-japanese \
