@@ -10,6 +10,8 @@ RUN apt-get update \
 RUN service ssh start
 RUN service ssh stop
 
+RUN mkdir -m 700 /root/.ssh
+
 EXPOSE 22
 
 CMD ["/usr/sbin/sshd", "-D"]
