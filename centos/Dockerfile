@@ -6,7 +6,7 @@ RUN service sshd start
 RUN service sshd stop
 
 RUN sed -ri 's/^#PubkeyAuthentication(.*)/PubkeyAuthentication yes/g' /etc/ssh/sshd_config
-RUN sed -ri 's/^#RootLoginPermit(.*)/RootLoginPermit yes/g' /etc/ssh/sshd_config
+RUN sed -ri 's/^#PermitRootLogin(.*)/PermitRootLogin yes/g' /etc/ssh/sshd_config
 
 RUN mkdir -m 700 /root/.ssh
 
