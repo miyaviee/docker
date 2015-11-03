@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd /data
+cd /rails
 rails new $PROJECT
 cd $PROJECT
 sed -ri "s/^# gem 'therubyracer'(.*)/gem 'therubyracer', platforms: :ruby/g" Gemfile
