@@ -1,7 +1,9 @@
 #!/bin/sh
 
-rails new -f /project
-sed -ri "s/^# gem 'therubyracer'(.*)/gem 'therubyracer', platforms: :ruby/g" Gemfile
+if [ -z "$(ls /project)" ]; then
+	rails new -f /project
+	sed -ri "s/^# gem 'therubyracer'(.*)/gem 'therubyracer', platforms: :ruby/g" Gemfile
+fi
 
 bundle install
 
