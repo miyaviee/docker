@@ -14,5 +14,7 @@ RUN echo "install: --no-document\nupdate: --no-document" >> /etc/gemrc
 RUN gem update --system
 RUN gem install rails
 
-COPY ./start.sh /start.sh
-CMD ./start.sh
+COPY ./start /start
+
+WORKDIR /project
+CMD /start
