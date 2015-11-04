@@ -12,4 +12,4 @@ RUN mkdir -m 700 /root/.ssh
 
 EXPOSE 22
 
-CMD ["/usr/sbin/sshd", "-D"]
+CMD /sbin/init

@@ -12,6 +12,8 @@ RUN service ssh stop
 
 RUN mkdir -m 700 /root/.ssh
 
+VOLUME /share /home
+
 EXPOSE 22
 
 CMD ["/usr/sbin/sshd", "-D"]
