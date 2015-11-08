@@ -1,14 +1,25 @@
 FROM centos:6
 
 RUN yum -y update \
-&& yum -y install httpd httpd-devel \
-libyaml-devel libxml2-devel \
-mysql-libs ImageMagick-devel mod_ssl \
-libaio-devel pcre-devel libcurl-devel \
-gcc make epel-release wget tar\
+&& yum -y install epel-release \
 && yum clean all
 
-RUN yum -y install libmcrypt-devel && yum clean all
+RUN yum -y install \
+httpd \
+httpd-devel \
+libyaml-devel \
+libxml2-devel \
+mysql-libs \
+ImageMagick-devel \
+mod_ssl \
+libaio-devel \
+pcre-devel \
+libcurl-devel \
+libmcrypt-devel \
+gcc \
+make \
+tar \
+&& yum clean all
 
 COPY ./instantclient_11_2 /usr/local/lib/instantclient_11_2
 WORKDIR /usr/local/lib/instantclient_11_2
@@ -19,9 +30,11 @@ ENV NLS_LANG="Japanese_Japan.AL32UTF8"
 ENV LD_LIBRARY_PATH="$ORACLE_HOME:$LD_LIBRARY_PATH"
 ENV PATH="$ORACLE_HOME:$PATH"
 
-WORKDIR /usr/local/src
-RUN wget -O - http://museum.php.net/php5/php-5.3.20.tar.gz | tar zxf - \
-&& cd php-5.3.20 \
+ENV PHP_VERSION 5.3.20
+
+RUN curl -SLO "http://museum.php.net/php5/php-$PHP_VERSION.tar.gz" \
+&& tar zxf php-$PHP_VERSION.tar.gz \
+&& cd "php-$PHP_VERSION" \
 && ./configure \
 --with-curl=/usr \
 --with-zlib \
@@ -44,5 +57,7 @@ RUN echo "\r\n" | pecl install imagick && rm -rf /tmp/pear
 COPY ./httpd.conf /etc/httpd/conf/httpd.conf
 COPY ./httpd-php53.conf /etc/httpd/conf/extra/httpd-php53.conf
 COPY ./php.ini /etc/php.ini
+
+EXPOSE 80 443
 
 CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
