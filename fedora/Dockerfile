@@ -19,13 +19,15 @@ vim \
 COPY ./.gemrc /root/.gemrc
 
 RUN gem update --system
-RUN gem install itamae bundler
+RUN gem install nokogiri parallel
 
 COPY ./.git-completion.bash /root/.git-completion.bash
 RUN echo "source '.git-completion.bash'" >> /root/.bash_profile
 
 RUN mkdir -m 700 /root/.ssh
 
-EXPOSE 22
+ENV LC_ALL en_US.UTF-8
 
+EXPOSE 22
+WORKDIR /media/kageyama/disk2/E/download
 CMD /sbin/init
