@@ -1,0 +1,10 @@
+[Unit]
+Description=container
+After=docker.service
+Requires=docker.service
+
+[Service]
+ExecStart=/usr/bin/docker start data fedora
+
+[Install]
+WantedBy=multi-user.target
