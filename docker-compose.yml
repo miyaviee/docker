@@ -1,0 +1,22 @@
+data:
+  image: busybox
+  volumes:
+    - "/share:/share"
+    - "/home:/home"
+
+web:
+  build: web
+  ports:
+    - "80:80"
+    - "443:443"
+  volumes_from:
+    - data
+#  extra_hosts:
+#    - "host:ip"
+
+samba:
+  build: samba
+  ports:
+    - "445:445"
+  volumes_from:
+    - data
