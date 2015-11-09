@@ -55,7 +55,7 @@ RUN echo "\r\n" | pecl install YAML && rm -rf /tmp/pear
 RUN echo "\r\n" | pecl install imagick && rm -rf /tmp/pear
 
 COPY ./httpd.conf /etc/httpd/conf/httpd.conf
-COPY ./httpd-php53.conf /etc/httpd/conf/extra/httpd-php53.conf
+COPY ./ssl.conf /etc/httpd/conf.d/ssl.conf
 COPY ./php.ini /etc/php.ini
 
 EXPOSE 80 443
