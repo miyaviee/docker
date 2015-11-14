@@ -9,6 +9,8 @@ data:
 arch:
   build: archlinux
   container_name: arch
+  ports:
+    - "2222:22"
   volumes_from:
     - data
   privileged: true

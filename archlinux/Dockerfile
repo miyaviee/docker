@@ -9,7 +9,7 @@ ENV PAC "pacman --noconfirm"
 RUN $PAC -Sy archlinux-keyring \
 && $PAC -Syu \
 && pacman-db-upgrade \
-&& $PAC -Sc
+&& rm -rf /var/cache/pacman/pkg/*
 
 RUN $PAC -S \
 ruby \
@@ -20,14 +20,12 @@ gcc \
 make \
 patch \
 the_silver_searcher \
-&& $PAC -Sc
+&& rm -rf /var/cache/pacman/pkg/*
 
 RUN gem update --system
 
 RUN ssh-keygen -f /etc/ssh/ssh_host_rsa_key -t rsa -b 2048 -N ''
 COPY ./sshd_config /etc/ssh/sshd_config
-
-RUN mkdir -m 700 /root/.ssh
 
 EXPOSE 22
 
