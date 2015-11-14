@@ -24,4 +24,11 @@ the_silver_searcher \
 
 RUN gem update --system
 
-CMD ["su", "-", "root"]
+RUN ssh-keygen -f /etc/ssh/ssh_host_rsa_key -t rsa -b 2048 -N ''
+COPY ./sshd_config /etc/ssh/sshd_config
+
+RUN mkdir -m 700 /root/.ssh
+
+EXPOSE 22
+
+CMD ["/usr/sbin/sshd", "-D"]
