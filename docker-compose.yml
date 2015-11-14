@@ -1,22 +1,16 @@
 data:
   image: busybox
+  container_name: data
   volumes:
-    - "/share:/share"
-    - "/home:/home"
-
-web:
-  build: web
-  ports:
-    - "80:80"
-    - "443:443"
+    - "/root"
+    - "/home"
+    - "/share"
+    - "$HOME:/host"
+arch:
+  build: archlinux
+  container_name: arch
   volumes_from:
     - data
-#  extra_hosts:
-#    - "host:ip"
-
-samba:
-  build: samba
-  ports:
-    - "445:445"
-  volumes_from:
-    - data
+  privileged: true
+  stdin_open: true
+  tty: true
