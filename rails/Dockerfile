@@ -14,10 +14,4 @@ RUN echo "install: --no-document\nupdate: --no-document" >> /etc/gemrc
 RUN gem update --system
 RUN gem install rails
 
-RUN rails new project
-RUN sed -ri "s/^# gem 'therubyracer'(.*)/gem 'therubyracer', platforms: :ruby/g" /project/Gemfile
-
-WORKDIR /project
-RUN bundle install
-ENTRYPOINT ["rails"]
-CMD ["s", "-b", "0.0.0.0", "-e", "development"]
+CMD ["/sbin/init"]
