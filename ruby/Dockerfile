@@ -1,20 +1,22 @@
-FROM debian
+FROM fedora
 
-RUN apt-get -y update \
-&& apt-get -y install \
+RUN dnf -y update \
+&& dnf -y install \
 ruby \
-ruby-dev \
-zlib1g-dev \
+ruby-devel \
+zlib-devel \
 gcc \
 make \
 patch \
-locales \
 git \
 vim \
-&& apt-get clean
-
-RUN sed -ri 's/^# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/g' /etc/locale.gen
-RUN locale-gen
+findutils \
+automake \
+autoconf \
+gperftools \
+redhat-rpm-config \
+tar \
+&& dnf -y clean all
 
 ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
@@ -24,5 +26,11 @@ RUN gem update --system
 RUN echo 'install: --no-document' >> /etc/gemrc
 RUN echo 'update: --no-document' >> /etc/gemrc
 
-CMD ["/bin/bash"]
+RUN git clone https://github.com/tkengo/highway.git /usr/local/src/highway \
+&& cd /usr/local/src/highway \
+&& ./tools/build.sh \
+&& mv hw /usr/local/bin \
+&& cd ../ \
+&& rm -rf /usr/local/src/highway
 
+CMD ["/sbin/init"]
