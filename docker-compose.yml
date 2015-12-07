@@ -6,13 +6,11 @@ data:
     - "/home"
     - "/share"
     - "$HOME:/host"
-arch:
-  build: archlinux
-  container_name: arch
-  ports:
-    - "2222:22"
+  privileged: true
+test:
+  build: test
+  container_name: test
   volumes_from:
     - data
   privileged: true
-  stdin_open: true
-  tty: true
+  restart: always
