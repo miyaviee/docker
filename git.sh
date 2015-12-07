@@ -7,7 +7,8 @@ yum -y install \
   curl-devel \
   zlib-devel \
   perl-ExtUtils-MakeMaker \
-  unzip
+  unzip \
+  tar
 
 yum clean all
 

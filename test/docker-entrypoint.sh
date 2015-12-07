@@ -1,10 +1,9 @@
 #!/bin/sh
 
 if [ "$1" == "setup" ]; then
-  cd /root/itamae
-  itamae local -j node.json roles/test.rb
+  service httpd stop
 fi
 
-if [ "$1" = "start" ]; then
+if [ "$1" == "start" ]; then
   /usr/sbin/httpd -D FOREGROUND
 fi
