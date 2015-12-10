@@ -5,10 +5,9 @@ data:
     - "/root"
     - "/home"
     - "/share"
-    - "$HOME:/host"
   privileged: true
 test:
-  build: test
+  build: ruby
   container_name: test
   volumes_from:
     - data
