@@ -6,10 +6,35 @@ data:
     - "/home"
     - "/share"
   privileged: true
-test:
-  build: ruby
-  container_name: test
+ruby:
+  build: itamae
+  container_name: ruby
   volumes_from:
     - data
+  extra_hosts:
+    - "localhost:127.0.0.1"
+    - "localhost:127.0.0.1"
+  privileged: true
+  restart: always
+web:
+  build: web
+  container_name: web
+  volumes_from:
+    - data
+  ports:
+    - "80:80"
+    - "443:443"
+  extra_hosts:
+    - "localhost:127.0.0.1"
+    - "localhost:127.0.0.1"
+  privileged: true
+  restart: always
+samba:
+  build: samba
+  container_name: samba
+  volumes_from:
+    - data
+  ports:
+    - "443:443"
   privileged: true
   restart: always
