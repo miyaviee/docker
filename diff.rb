@@ -58,6 +58,10 @@ module Diff
         @w2 += word2.shift
       end
 
+      unless diff
+        diff = diff_start
+      end
+
       @w1 += word1.join
       @w2 += word2.join
 
@@ -67,6 +71,7 @@ module Diff
 
       @w1 = CE.pickup(/\[.*?\]/, :h_red).get(@w1)
       @w2 = CE.pickup(/\[.*?\]/, :h_red).get(@w2)
+
       return @w1, @w2
     end
   end
