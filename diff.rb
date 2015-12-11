@@ -58,12 +58,19 @@ module Diff
         @w2 += word2.shift
       end
 
-      unless diff
-        diff = diff_start
+      unless word1.empty?
+        unless diff
+          diff = diff_start
+        end
+        @w1 += word1.join
       end
 
-      @w1 += word1.join
-      @w2 += word2.join
+      unless word2.empty?
+        unless diff
+          diff = diff_start
+        end
+        @w2 += word2.join
+      end
 
       if diff
         diff = diff_end
