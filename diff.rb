@@ -37,38 +37,35 @@ module Diff
       loop do
         break if word1.empty? or word2.empty?
 
-        unless word1.first == word2.first
-          unless diff
-            diff = diff_start
+        if word1.first == word2.first
+          @w1 += word1.shift
+          @w2 += word2.shift
+
+          if diff
+            diff = diff_end
           end
 
-          if word1.size > word2.size
-            @w1 += word1.shift
-          else
-            @w2 += word2.shift
-          end
           next
         end
 
-        if diff
-          diff = diff_end
-        end
-
-        @w1 += word1.shift
-        @w2 += word2.shift
-      end
-
-      unless word1.empty?
         unless diff
           diff = diff_start
         end
+
+
+        if word1.size > word2.size
+          @w1 += word1.shift
+        else
+          @w2 += word2.shift
+        end
+      end
+
+      unless word1.empty? or word2.empty?
+        unless diff
+          diff = diff_start
+        end
+
         @w1 += word1.join
-      end
-
-      unless word2.empty?
-        unless diff
-          diff = diff_start
-        end
         @w2 += word2.join
       end
 
