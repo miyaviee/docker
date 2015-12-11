@@ -1,75 +1,73 @@
+require 'color_echo/get'
+
 module Diff
   class << self
     def string_to_h s
-      a = {}
-      i = 0
+      a = []
       s.each_char do |c|
-        a[i] = c
-        i += 1
+        a << c
       end
 
       return a
+    end
+
+    def diff_start
+      @w1 += '['
+      @w2 += '['
+
+      return true
+    end
+
+    def diff_end
+      @w1 += ']'
+      @w2 += ']'
+
+      return false
     end
 
     def diff s1, s2
       word1 = self.string_to_h s1
       word2 = self.string_to_h s2
 
-      i = 0
-      j = 0
       diff = false
-      w1 = ''
-      w2 = ''
-      loop do
-        break if word1[i].nil? or word2[j].nil?
 
-        unless word1[i] == word2[j]
+      @w1 = ''
+      @w2 = ''
+
+      loop do
+        break if word1.empty? or word2.empty?
+
+        unless word1.first == word2.first
           unless diff
-            w1 += '['
-            w2 += '['
-            diff = true
+            diff = diff_start
           end
 
           if word1.size > word2.size
-            w1 += word1[i]
-            word1.delete i
-            i += 1
+            @w1 += word1.shift
           else
-            w2 += word2[j]
-            word2.delete j
-            j += 1
+            @w2 += word2.shift
           end
           next
         end
 
         if diff
-          w1 += ']'
-          w2 += ']'
-          diff = false
+          diff = diff_end
         end
 
-        w1 += word1[i]
-        w2 += word2[j]
-        word1.delete i
-        word2.delete j
-        i += 1
-        j += 1
+        @w1 += word1.shift
+        @w2 += word2.shift
       end
 
-      word1.each do |k,c|
-        w1 += c
-      end
-
-      word2.each do |k,c|
-        w2 += c
-      end
+      @w1 += word1.join
+      @w2 += word2.join
 
       if diff
-        w1 += ']'
-        w2 += ']'
+        diff = diff_end
       end
 
-      return w1, w2
+      @w1 = CE.pickup(/\[.*?\]/, :h_red).get(@w1)
+      @w2 = CE.pickup(/\[.*?\]/, :h_red).get(@w2)
+      return @w1, @w2
     end
   end
 end
