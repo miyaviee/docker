@@ -21,7 +21,17 @@ module Diff
       w2 = ''
 
       loop do
-        break if word1.empty? or word2.empty?
+        if word1.empty? or word2.empty?
+          w1 += word1.join
+          w2 += word2.join
+
+          if diff
+            w1 += ']'
+            w2 += ']'
+          end
+
+          break
+        end
 
         if word1.first == word2.first
           if diff
@@ -49,25 +59,6 @@ module Diff
         else
           w2 += word2.shift
         end
-      end
-
-      unless word1.empty? and word2.empty?
-        unless diff
-          w1 += '['
-          w2 += '['
-
-          diff = true
-        end
-
-        w1 += word1.join
-        w2 += word2.join
-      end
-
-      if diff
-        w1 += ']'
-        w2 += ']'
-
-        diff = false
       end
 
       w1 = CE.pickup(/\[.*?\]/, :h_red).get(w1)
