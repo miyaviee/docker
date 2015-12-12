@@ -2,7 +2,7 @@ require 'color_echo/get'
 
 module Diff
   class << self
-    def string_to_h s
+    def string_to_a s
       a = []
       s.each_char do |c|
         a << c
@@ -26,8 +26,8 @@ module Diff
     end
 
     def diff s1, s2
-      word1 = self.string_to_h s1
-      word2 = self.string_to_h s2
+      word1 = self.string_to_a s1
+      word2 = self.string_to_a s2
 
       diff = false
 
