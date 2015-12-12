@@ -12,16 +12,8 @@ module Diff
       return a
     end
 
-    def set_diff d
-      unless d.length == 0
-        d = '[' + d + ']'
-      end
-
-      return d
-    end
-
-    def set_color w
-      return CE.pickup(/\[.*?\]/, :h_red).get(w)
+    def set_diff w
+      return CE.ch(:red).get(w)
     end
 
     def diff s1, s2
@@ -52,9 +44,6 @@ module Diff
         w1 += word1.shift
         w2 += word2.shift
       end
-
-      w1 = set_color w1
-      w2 = set_color w2
 
       return w1, w2
     end
