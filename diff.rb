@@ -21,13 +21,24 @@ module Diff
       w2 = ''
 
       loop do
+        break if word1.empty? and word2.empty?
+
         if word1.empty? or word2.empty?
+          unless diff
+            w1 += '['
+            w2 += '['
+
+            diff = true
+          end
+
           w1 += word1.join
           w2 += word2.join
 
           if diff
             w1 += ']'
             w2 += ']'
+
+            diff = false
           end
 
           break
