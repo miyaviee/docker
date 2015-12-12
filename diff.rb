@@ -11,71 +11,69 @@ module Diff
       return a
     end
 
-    def diff_start
-      @w1 += '['
-      @w2 += '['
-
-      return true
-    end
-
-    def diff_end
-      @w1 += ']'
-      @w2 += ']'
-
-      return false
-    end
-
     def diff s1, s2
       word1 = self.string_to_a s1
       word2 = self.string_to_a s2
 
       diff = false
 
-      @w1 = ''
-      @w2 = ''
+      w1 = ''
+      w2 = ''
 
       loop do
         break if word1.empty? or word2.empty?
 
         if word1.first == word2.first
           if diff
-            diff = diff_end
+            w1 += ']'
+            w2 += ']'
+
+            diff = false
           end
 
-          @w1 += word1.shift
-          @w2 += word2.shift
+          w1 += word1.shift
+          w2 += word2.shift
 
           next
         end
 
         unless diff
-          diff = diff_start
+          w1 += '['
+          w2 += '['
+
+          diff = true
         end
 
         if word1.size > word2.size
-          @w1 += word1.shift
+          w1 += word1.shift
         else
-          @w2 += word2.shift
+          w2 += word2.shift
         end
       end
 
       unless word1.empty? and word2.empty?
         unless diff
-          diff = diff_start
+          w1 += '['
+          w2 += '['
+
+          diff = true
         end
 
-        @w1 += word1.join
-        @w2 += word2.join
+        w1 += word1.join
+        w2 += word2.join
       end
 
       if diff
-        diff = diff_end
+        w1 += ']'
+        w2 += ']'
+
+        diff = false
       end
 
-      @w1 = CE.pickup(/\[.*?\]/, :h_red).get(@w1)
-      @w2 = CE.pickup(/\[.*?\]/, :h_red).get(@w2)
+      w1 = CE.pickup(/\[.*?\]/, :h_red).get(w1)
+      w2 = CE.pickup(/\[.*?\]/, :h_red).get(w2)
 
-      return @w1, @w2
+      return w1, w2
     end
   end
 end
