@@ -25,8 +25,8 @@ module Diff
     end
 
     def diff s1, s2
-      word1 = self.string_to_a s1
-      word2 = self.string_to_a s2
+      word1 = string_to_a s1
+      word2 = string_to_a s2
 
       d1 = ''
       d2 = ''
@@ -41,8 +41,8 @@ module Diff
           end
         end
 
-        w1 += self.set_diff d1
-        w2 += self.set_diff d2
+        w1 += set_diff d1
+        w2 += set_diff d2
 
         d1 = ''
         d2 = ''
