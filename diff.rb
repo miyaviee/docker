@@ -38,12 +38,12 @@ module Diff
         break if word1.empty? or word2.empty?
 
         if word1.first == word2.first
-          @w1 += word1.shift
-          @w2 += word2.shift
-
           if diff
             diff = diff_end
           end
+
+          @w1 += word1.shift
+          @w2 += word2.shift
 
           next
         end
