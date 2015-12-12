@@ -2,6 +2,7 @@ require 'color_echo/get'
 
 module Diff
   class << self
+
     def string_to_a s
       a = []
       s.each_char do |c|
@@ -11,69 +12,49 @@ module Diff
       return a
     end
 
+    def set_diff d
+      unless d.length == 0
+        d = '[' + d + ']'
+      end
+
+      return d
+    end
+
+    def set_color w
+      return CE.pickup(/\[.*?\]/, :h_red).get(w)
+    end
+
     def diff s1, s2
       word1 = self.string_to_a s1
       word2 = self.string_to_a s2
 
-      diff = false
-
+      d1 = ''
+      d2 = ''
       w1 = ''
       w2 = ''
-
       loop do
+        while word1.first != word2.first
+          if word1.size > word2.size
+            d1 += word1.shift
+          else
+            d2 += word2.shift
+          end
+        end
+
+        w1 += self.set_diff d1
+        w2 += self.set_diff d2
+
+        d1 = ''
+        d2 = ''
+
         break if word1.empty? and word2.empty?
 
-        if word1.empty? or word2.empty?
-          unless diff
-            w1 += '['
-            w2 += '['
-
-            diff = true
-          end
-
-          w1 += word1.join
-          w2 += word2.join
-
-          if diff
-            w1 += ']'
-            w2 += ']'
-
-            diff = false
-          end
-
-          break
-        end
-
-        if word1.first == word2.first
-          if diff
-            w1 += ']'
-            w2 += ']'
-
-            diff = false
-          end
-
-          w1 += word1.shift
-          w2 += word2.shift
-
-          next
-        end
-
-        unless diff
-          w1 += '['
-          w2 += '['
-
-          diff = true
-        end
-
-        if word1.size > word2.size
-          w1 += word1.shift
-        else
-          w2 += word2.shift
-        end
+        w1 += word1.shift
+        w2 += word2.shift
       end
 
-      w1 = CE.pickup(/\[.*?\]/, :h_red).get(w1)
-      w2 = CE.pickup(/\[.*?\]/, :h_red).get(w2)
+      w1 = set_color w1
+      w2 = set_color w2
 
       return w1, w2
     end
