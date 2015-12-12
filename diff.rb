@@ -45,6 +45,7 @@ module Diff
 
       return w1, w2
     end
+
   end
 end
 
