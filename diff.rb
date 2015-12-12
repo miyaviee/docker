@@ -52,7 +52,6 @@ module Diff
           diff = diff_start
         end
 
-
         if word1.size > word2.size
           @w1 += word1.shift
         else
