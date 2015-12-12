@@ -29,8 +29,14 @@ module Diff
         while word1.first != word2.first
           if word1.size > word2.size
             d1 += word1.shift
+            if word2.include? word1.first
+              d2 += word2.shift
+            end
           else
             d2 += word2.shift
+            if word1.include? word2.first
+              d1 += word1.shift
+            end
           end
         end
 
