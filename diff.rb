@@ -59,7 +59,7 @@ module Diff
         end
       end
 
-      unless word1.empty? or word2.empty?
+      unless word1.empty? and word2.empty?
         unless diff
           diff = diff_start
         end
