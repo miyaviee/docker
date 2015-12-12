@@ -20,11 +20,12 @@ module Diff
       word1 = string_to_a s1
       word2 = string_to_a s2
 
-      d1 = ''
-      d2 = ''
       w1 = ''
       w2 = ''
       loop do
+        d1 = ''
+        d2 = ''
+
         while word1.first != word2.first
           if word1.size > word2.size
             d1 += word1.shift
@@ -35,9 +36,6 @@ module Diff
 
         w1 += set_diff d1
         w2 += set_diff d2
-
-        d1 = ''
-        d2 = ''
 
         break if word1.empty? and word2.empty?
 
