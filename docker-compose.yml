@@ -7,7 +7,7 @@ data:
     - "/share"
   privileged: true
 ruby:
-  build: itamae
+  build: ruby
   container_name: ruby
   volumes_from:
     - data
@@ -35,6 +35,6 @@ samba:
   volumes_from:
     - data
   ports:
-    - "443:443"
+    - "445:445"
   privileged: true
   restart: always
