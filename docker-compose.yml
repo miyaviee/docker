@@ -9,7 +9,7 @@ itamae:
   build: itamae
   container_name: itamae
   volumes:
-    - "./:/itamae"
+    - "./itamae:/itamae"
   volumes_from:
     - data
   extra_hosts:
