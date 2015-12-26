@@ -15,7 +15,6 @@ ruby:
     - data
   extra_hosts:
     - "localhost:127.0.0.1"
-    - "localhost:127.0.0.1"
   privileged: true
   restart: always
 web:
@@ -27,7 +26,6 @@ web:
     - "80:80"
     - "443:443"
   extra_hosts:
-    - "localhost:127.0.0.1"
     - "localhost:127.0.0.1"
   privileged: true
   restart: always
