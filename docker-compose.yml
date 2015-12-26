@@ -5,6 +5,18 @@ data:
     - "/home"
     - "/share"
   privileged: true
+itamae:
+  build: itamae
+  container_name: itamae
+  volumes:
+    - "./:/itamae"
+  volumes_from:
+    - data
+  extra_hosts:
+    - "localhost:127.0.0.1"
+  privileged: true
+  stdin_open: true
+  tty: true
 ruby:
   build: ruby
   container_name: ruby
@@ -16,7 +28,8 @@ ruby:
   extra_hosts:
     - "localhost:127.0.0.1"
   privileged: true
-  restart: always
+  stdin_open: true
+  tty: true
 web:
   build: web
   container_name: web
