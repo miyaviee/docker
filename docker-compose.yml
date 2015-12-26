@@ -2,13 +2,15 @@ data:
   image: busybox
   container_name: data
   volumes:
-    - "/root"
     - "/home"
     - "/share"
   privileged: true
 ruby:
   build: ruby
   container_name: ruby
+  volumes:
+    - "/home:/home"
+    - "/share:/share"
   volumes_from:
     - data
   extra_hosts:
