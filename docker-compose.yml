@@ -2,20 +2,34 @@ data:
   image: busybox
   container_name: data
   volumes:
-    - "/root"
     - "/home"
     - "/share"
   privileged: true
-ruby:
+itamae:
   build: itamae
-  container_name: ruby
+  container_name: itamae
+  volumes:
+    - "./itamae:/itamae"
   volumes_from:
     - data
   extra_hosts:
     - "localhost:127.0.0.1"
+  privileged: true
+  stdin_open: true
+  tty: true
+ruby:
+  build: ruby
+  container_name: ruby
+  volumes:
+    - "/home:/home"
+    - "/share:/share"
+  volumes_from:
+    - data
+  extra_hosts:
     - "localhost:127.0.0.1"
   privileged: true
-  restart: always
+  stdin_open: true
+  tty: true
 web:
   build: web
   container_name: web
@@ -26,7 +40,6 @@ web:
     - "443:443"
   extra_hosts:
     - "localhost:127.0.0.1"
-    - "localhost:127.0.0.1"
   privileged: true
   restart: always
 samba:
@@ -35,6 +48,6 @@ samba:
   volumes_from:
     - data
   ports:
-    - "443:443"
+    - "445:445"
   privileged: true
   restart: always
