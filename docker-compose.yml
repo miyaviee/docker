@@ -9,6 +9,8 @@ itamae:
   build: itamae
   container_name: itamae
   volumes:
+    - "/home:/home"
+    - "/share:/share"
     - "./itamae:/itamae"
   volumes_from:
     - data
@@ -17,12 +19,9 @@ itamae:
   privileged: true
   stdin_open: true
   tty: true
-ruby:
-  build: ruby
-  container_name: ruby
-  volumes:
-    - "/home:/home"
-    - "/share:/share"
+ci:
+  build: ci
+  container_name: ci
   volumes_from:
     - data
   extra_hosts:

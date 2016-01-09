@@ -33,10 +33,7 @@ ENV PATH="$ORACLE_HOME:$PATH"
 
 ENV PHP_VERSION 5.3.20
 
-RUN curl -SLO "http://museum.php.net/php5/php-$PHP_VERSION.tar.gz" \
-&& tar zxf php-$PHP_VERSION.tar.gz \
-&& cd "php-$PHP_VERSION" \
-&& ./configure \
+ENV CONFIG "\
 --enable-zend-multibyte \
 --enable-mbstring \
 --enable-mbregex \
@@ -53,8 +50,12 @@ RUN curl -SLO "http://museum.php.net/php5/php-$PHP_VERSION.tar.gz" \
 --with-apxs2=/usr/sbin/apxs \
 --with-curl \
 --with-openssl \
---with-libdir=lib64 \
-&& make && make install && cd ../ && rm -rf php-5.3.20
+--with-libdir=lib64"
+
+RUN curl -SLO "http://museum.php.net/php5/php-$PHP_VERSION.tar.gz" \
+&& tar zxf php-$PHP_VERSION.tar.gz \
+&& cd "php-$PHP_VERSION" && ./configure $CONFIG && make && make install \
+&& cd ../ && rm -rf php-5.3.20
 
 WORKDIR /root
 RUN echo "\r\n" | pecl install YAML && rm -rf /tmp/pear

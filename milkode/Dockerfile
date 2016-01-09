@@ -18,10 +18,7 @@ ENV LC_ALL en_US.UTF-8
 
 RUN gem update --system
 
-RUN echo 'install: --no-document' >> /etc/gemrc
-RUN echo 'update: --no-document' >> /etc/gemrc
-
-RUN gem install milkode
+RUN gem install milkode --no-document
 
 RUN milk init --default
 
