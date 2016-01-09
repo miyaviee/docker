@@ -9,9 +9,7 @@ gcc make patch g++ \
 git vim \
 && apt-get clean
 
-RUN echo "install: --no-document\nupdate: --no-document" >> /etc/gemrc
-
 RUN gem update --system
-RUN gem install rails
+RUN gem install rails --no-document
 
 CMD ["/sbin/init"]
