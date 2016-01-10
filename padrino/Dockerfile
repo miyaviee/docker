@@ -6,6 +6,7 @@ ruby-devel \
 gcc \
 make \
 sqlite-devel \
+postgresql-devel \
 redhat-rpm-config \
 && dnf clean all
 
