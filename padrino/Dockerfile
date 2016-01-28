@@ -5,7 +5,6 @@ ruby \
 ruby-devel \
 gcc \
 make \
-sqlite-devel \
 postgresql-devel \
 redhat-rpm-config \
 && dnf clean all
@@ -13,7 +12,9 @@ redhat-rpm-config \
 RUN gem update --system
 RUN gem install padrino --no-document
 
+ENV DATABASE_URL "db://postgres@postgres/postgres"
+
 EXPOSE 3000
 
-WORKDIR /padrino
+WORKDIR /app
 CMD ["/sbin/init"]
