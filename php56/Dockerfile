@@ -24,23 +24,22 @@ tar \
 ENV PHP_VERSION 5.6.18
 
 ENV CONFIG "\
---enable-zend-multibyte \
 --enable-mbstring \
 --enable-mbregex \
---with-mysqli=shared,mysqlnd \
---with-mysql=shared,mysqlnd \
---with-pdo-mysql=shared,mysqlnd \
+--with-mysqli \
+--with-mysql \
+--with-pdo-mysql \
 --with-zlib \
 --with-zlib-dir \
 --with-apxs2=/usr/sbin/apxs \
 --with-curl \
 --with-openssl \
+--with-pdflib \
 --with-libdir=lib64"
 
 RUN curl -SLO http://jp2.php.net/distributions/php-${PHP_VERSION}.tar.gz \
 && tar xzf php-${PHP_VERSION}.tar.gz \
-&& cd php-${PHP_VERSION} && ./configure $CONFIG && make && make install \
-&& cd ../ && rm -rf php-${PHP_VERSION}*
+&& cd php-${PHP_VERSION} && ./configure $CONFIG && make && make install
 
 RUN yum -y install gcc \
 gcc-c++ \
@@ -62,8 +61,7 @@ vim \
 
 RUN curl -SLO https://github.com/git/git/archive/master.zip \
 && unzip master.zip && cd git-master \
-&& make configure && ./configure && make && make install \
-&& cd ../ && rm -rf git-master
+&& make configure && ./configure && make && make install
 
 RUN curl -sS https://getcomposer.org/installer | php \
 && mv composer.phar /usr/local/bin/composer
@@ -74,6 +72,8 @@ COPY ./composer.json /app/composer.json
 RUN cd /app && composer install
 
 COPY ./httpd.conf /etc/httpd/conf/httpd.conf
+COPY ./.htaccess /app
+
 RUN service httpd start
 RUN chkconfig httpd on
 RUN service sshd start
