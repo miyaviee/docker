@@ -47,8 +47,6 @@ RUN curl -SLO http://jp2.php.net/distributions/php-${PHP_VERSION}.tar.gz \
 && tar xvzf php-${PHP_VERSION}.tar.gz \
 && cd php-${PHP_VERSION} && ./configure ${CONFIG} && make && make install
 
-RUN echo "/usr/local" | pecl install pdflib
-
 RUN curl -sS https://getcomposer.org/installer | php \
 && mv composer.phar /usr/local/bin/composer
 
