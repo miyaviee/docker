@@ -40,6 +40,7 @@ ENV CONFIG "\
 --with-apxs2=/usr/sbin/apxs \
 --with-curl \
 --with-openssl \
+--enable-zip \
 --with-config-file-path=/etc \
 --with-libdir=lib64"
 
