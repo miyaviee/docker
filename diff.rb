@@ -5,6 +5,9 @@ module Diff
 
     def string_to_a s
       a = []
+
+      return a if s.nil?
+
       s.each_char do |c|
         a << c
       end
@@ -23,34 +26,51 @@ module Diff
 
       w1 = ''
       w2 = ''
-      loop do
-        d1 = ''
-        d2 = ''
 
-        while word1.first != word2.first
-          if word1.size > word2.size
-            d1 += word1.shift
-            if word2.include? word1.first
-              d2 += word2.shift
-            end
+      loop do
+        if word1.first != word2.first
+          if word1.size <= word2.size
+            word, word2 = check word1, word2
+            w2 += set_diff word
           else
-            d2 += word2.shift
-            if word1.include? word2.first
-              d1 += word1.shift
-            end
+            word, word1 = check word2, word1
+            w1 += set_diff word
           end
         end
 
-        w1 += set_diff d1
-        w2 += set_diff d2
+        if word1.empty?
+          w2 += set_diff word2.join
+          break
+        end
 
-        break if word1.empty? and word2.empty?
+        if word2.empty?
+          w1 += set_diff word1.join
+          break
+        end
 
         w1 += word1.shift
         w2 += word2.shift
       end
 
       return w1, w2
+    end
+
+    def check s, l
+      w = ''
+      loop do
+        break if l.first == s.first
+        k = l.find_index s.first
+        if k.nil?
+          w = l.join
+          l = []
+          break
+        end
+        k.times do
+          w += l.shift
+        end
+      end
+
+      return w, l
     end
 
   end
