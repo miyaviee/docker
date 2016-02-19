@@ -1,6 +1,7 @@
 FROM fedora
 
-RUN dnf -y install \
+RUN dnf -y update \
+&& dnf -y install \
 ruby \
 ruby-devel \
 gcc \
@@ -9,7 +10,11 @@ postgresql-devel \
 redhat-rpm-config \
 && dnf clean all
 
+RUN echo 'install: --no-document' >> /etc/gemrc \
+&& echo 'update: --no-document' >> /etc/gemrc
+
 RUN gem update --system
+RUN gem install bundler
 RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 ENV DATABASE_URL "db://postgres@postgres/postgres"

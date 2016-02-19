@@ -19,7 +19,7 @@ redhat-rpm-config \
 tar \
 && dnf clean all
 
-RUN gem install nokogiri parallel tilt mail color_echo --no-document
+RUN gem install nokogiri parallel --no-document
 
-WORKDIR /share
+WORKDIR /share/kageyama/disk2/E/download
 CMD ["/bin/bash"]
