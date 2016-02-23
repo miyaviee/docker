@@ -51,39 +51,36 @@ module Diff
         k1 = word1.find_index word2.first
         k2 = word2.find_index word1.first
 
-        if k1.nil? and k2.nil?
+        if k1 == k2
           d1 += set_diff word1.shift
           d2 += set_diff word2.shift
           next
         end
 
-        if a.nil?
+        if k1.nil?
           d2 += set_diff word2.shift
           next
         end
 
-        if b.nil?
+        if k2.nil?
           d1 += set_diff word1.shift
           next
         end
 
-        if a == b
-          d1 += set_diff word1.shift
-          d2 += set_diff word2.shift
-        elsif a > b
-          b.times do |n|
+        if k1 > k2
+          k2.times do |n|
             d2 += set_diff word2.shift
           end
-        else
-          a.times do |n|
-            d1 += set_diff word1.shift
-          end
+          next
+        end
+
+        k1.times do |n|
+          d1 += set_diff word1.shift
         end
       end
 
       return w1, w2
     end
-
   end
 end
 
