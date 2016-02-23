@@ -1,0 +1,15 @@
+postgres:
+  image: postgres
+  container_name: postgres
+  privileged: true
+  command: postgres
+padrino:
+  build: .
+  container_name: padrino
+  privileged: true
+  volumes:
+    - "~/padrino/test:/app"
+  ports:
+    - "3000:3000"
+  links:
+    - postgres
