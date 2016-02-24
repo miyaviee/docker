@@ -8,10 +8,17 @@ session = Capybara::Session.new(:poltergeist_sp)
 
 session.driver.headers = { 'User-Agent' => 'iPhone' }
 
-session.visit 'http://192.168.33.10/sp/s/party/?av=1&dt=20160501100000'
+session.visit 'http://r.gnavi.co.jp/sp/s/kansougei/'
 
 session.save_screenshot 'index.png', :full => true
 
-session.click_link 'エリアを選んでお店を探す'
+test = {
+  'エリアから探す' => 'pref_list.png',
+  '東京' => 'pref.png',
+}
 
-session.save_screenshot 'pref_list.png', :full => true
+test.each do |k,v|
+  session.click_link k
+  session.save_screenshot v, :full => true
+end
+
