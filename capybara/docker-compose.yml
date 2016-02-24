@@ -6,4 +6,5 @@ capybara:
   tty: true
   extra_hosts:
     - 'pavo:172.25.0.66'
-
+  volumes:
+    - './:/app'
