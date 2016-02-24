@@ -19,6 +19,9 @@ RUN dnf -y groupinstall "Japanese Support" \
 
 RUN fc-cache -fv
 
+ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
+
 RUN echo 'install: --no-document' >> /etc/gemrc \
 && echo 'update: --no-document' >> /etc/gemrc
 
