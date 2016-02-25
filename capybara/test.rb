@@ -10,19 +10,40 @@ session = Capybara::Session.new(:poltergeist_sp)
 
 session.driver.headers = { 'User-Agent' => 'iPhone' }
 
-session.visit 'http://r.gnavi.co.jp/sp/s/kansougei/'
+session.visit 'http://192.168.33.10/sp/s/party/?av=1&dt=20160501100000'
 
-session.save_screenshot 'index.png', :full => true
+session.save_screenshot session.title + '.png', :full => true
 
-test = {
-  'エリアから探す' => 'pref_list.png',
-  '東京' => 'pref.png',
-  '個室' => 'theme_list.png',
-  '少人数で個室' => 'search.png',
-}
+session.click_link '変更'
 
-test.each do |k,v|
-  session.click_link k
-  session.save_screenshot v, :full => true
-end
+session.save_screenshot session.title + '.png', :full => true
+
+session.all('a.js-slide-arrow').each {|a| a.click if a.text == '北海道・東北'}
+
+session.save_screenshot session.title + '.png', :full => true
+
+session.click_link '北海道'
+
+session.save_screenshot session.title + '.png', :full => true
+
+session.click_link '全国版へ'
+
+session.save_screenshot session.title + '.png', :full => true
+
+session.click_link '変更'
+
+session.save_screenshot session.title + '.png', :full => true
+
+session.click_link '北海道'
+
+session.save_screenshot session.title + '.png', :full => true
+
+session.click_link '個室のあるお店'
+
+session.save_screenshot session.title + '.png', :full => true
+
+session.click_link '少人数で個室'
+
+session.save_screenshot session.title + '.png', :full => true
+
 
