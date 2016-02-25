@@ -1,0 +1,8 @@
+task :spec do
+  Dir::foreach('spec') do |f|
+    next unless f.include?('.rb')
+    next if f.include?('spec_helper.rb')
+
+    system("rspec spec/#{f}")
+  end
+end

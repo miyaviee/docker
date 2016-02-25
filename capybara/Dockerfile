@@ -20,7 +20,7 @@ ENV LANG en_US.UTF-8
 
 RUN gem update --system
 
-RUN gem install rspec capybara poltergeist --no-document
+RUN gem install rake rspec capybara poltergeist --no-document
 
 RUN curl -SLO https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2 \
 && tar jvxf phantomjs-2.1.1-linux-x86_64.tar.bz2 \
