@@ -18,12 +18,9 @@ unzip \
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 
-RUN echo 'install: --no-document' >> /etc/gemrc \
-&& echo 'update: --no-document' >> /etc/gemrc
-
 RUN gem update --system
 
-RUN gem install capybara poltergeist
+RUN gem install rspec capybara poltergeist
 
 RUN curl -SLO https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2 \
 && tar jvxf phantomjs-2.1.1-linux-x86_64.tar.bz2 \
