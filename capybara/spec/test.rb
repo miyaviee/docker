@@ -9,7 +9,7 @@ feature 'test' do
   end
 
   after do
-    page.save_screenshot page.title + '.png', :full => true
+    page.save_screenshot title + '.png', :full => true
   end
 
   scenario 'hokkaido' do
