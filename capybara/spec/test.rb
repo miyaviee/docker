@@ -9,7 +9,10 @@ feature 'test' do
   end
 
   after do |example|
-    page.save_screenshot example.description + '.png', :full => true
+    filename = "log/#{example.full_description}.png".gsub ' ', '/'
+    dirname = File.dirname filename
+    Dir.mkdir dirname unless File.exist? dirname
+    page.save_screenshot filename, :full => true
   end
 
   scenario 'hokkaido' do
