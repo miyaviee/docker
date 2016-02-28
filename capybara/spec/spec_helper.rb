@@ -93,4 +93,15 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+
+  config.before do
+    Capybara.register_driver :poltergeist_sp do |app|
+      Capybara::Poltergeist::Driver.new(app, :js_errors => true)
+    end
+
+    Capybara.configure do |capybara|
+      capybara.run_server = false
+      capybara.default_driver = :poltergeist_sp
+    end
+  end
 end
