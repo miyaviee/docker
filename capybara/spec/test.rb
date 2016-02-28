@@ -8,8 +8,8 @@ feature 'test' do
     page.driver.resize 320, 568
   end
 
-  after do
-    page.save_screenshot title + '.png', :full => true
+  after do |example|
+    page.save_screenshot example.description + '.png', :full => true
   end
 
   scenario 'hokkaido' do
