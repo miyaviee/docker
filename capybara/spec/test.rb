@@ -16,24 +16,15 @@ end
 
 feature 'test' do
   before {page.driver.headers = { 'User-Agent' => 'iPhone'}}
+  after  {page.save_screenshot page.title + '.png', full: true}
 
-  scenario 'test' do
-    visit '?av=1&dt=20160501100000'
-    page.save_screenshot page.title + '.png', full: true
+  scenario 'hokkaido' do
+    visit current_path
 
     click_link 'エリアから探す'
-    page.save_screenshot page.title + '.png', full: true
 
     all('a.js-slide-arrow').each {|a| a.click if a.text == '北海道・東北'}
-    page.save_screenshot page.title + '.png', full: true
 
     click_link '北海道'
-    page.save_screenshot page.title + '.png', full: true
-
-    click_link 'もっとみる'
-    page.save_screenshot page.title + '.png', full: true
-
-    all('a').first.click
-    page.save_screenshot page.title + '.png', full: true
   end
 end
