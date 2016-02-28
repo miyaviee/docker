@@ -11,7 +11,7 @@ end
 Capybara.configure do |config|
   config.run_server = false
   config.default_driver = :poltergeist_sp
-  config.app_host = 'http://r.gnavi.co.jp/sp/s/kansougei/'
+  config.app_host = ''
 end
 
 feature 'test' do
@@ -20,11 +20,5 @@ feature 'test' do
 
   scenario 'hokkaido' do
     visit current_path
-
-    click_link 'エリアから探す'
-
-    all('a.js-slide-arrow').each {|a| a.click if a.text == '北海道・東北'}
-
-    click_link '北海道'
   end
 end
