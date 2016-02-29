@@ -12,6 +12,7 @@ COPY ./ssl.sh /etc/nginx/ssl
 RUN cd /etc/nginx/ssl && ./ssl.sh
 
 COPY ./ssl.conf /etc/nginx/conf.d
+COPY ./default.conf /etc/nginx/conf.d
 
 RUN chkconfig nginx on
 EXPOSE 80 443
