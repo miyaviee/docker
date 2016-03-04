@@ -33,4 +33,4 @@ RUN cd /usr/share/fonts \
 && unzip migu-1m-20150712.zip && rm -rf migu-1m-20150712.zip
 
 WORKDIR /app
-CMD /bin/bash
+CMD ["rake", "spec"]
