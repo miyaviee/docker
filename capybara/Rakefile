@@ -1,8 +1,14 @@
 task :spec do
-  Dir::foreach('spec') do |f|
+  dir_open('spec')
+end
+
+def dir_open(path)
+  Dir::foreach(path) do |f|
+    next if f.match(/\.$/)
+    dir_open "#{path}/#{f}" if File::ftype("#{path}/#{f}") == 'directory'
     next unless f.include?('.rb')
     next if f.include?('spec_helper.rb')
 
-    system("rspec spec/#{f}")
+    system("rspec #{path}/#{f}")
   end
 end
