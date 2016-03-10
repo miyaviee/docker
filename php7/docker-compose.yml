@@ -1,0 +1,15 @@
+elbacky_postgres:
+  image: postgres
+  container_name: elbacky_postgres
+  privileged: true
+  command: postgres
+elbacky:
+  build: .
+  container_name: elbacky
+  privileged: true
+  volumes:
+    - "~/elbacky:/app"
+  ports:
+    - "80:80"
+  links:
+    - elbacky_postgres
