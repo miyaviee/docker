@@ -50,6 +50,8 @@ RUN curl -sS https://getcomposer.org/installer | php \
 COPY ./httpd.conf /etc/httpd/conf/httpd.conf
 COPY ./php.ini /etc/php.ini
 
+ENV DATABASE_URL db://postgres:@elbacky_postgres/postgres
+
 WORKDIR /app
 EXPOSE 80 443
 CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
