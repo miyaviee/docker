@@ -8,7 +8,7 @@ padrino:
   container_name: padrino
   privileged: true
   volumes:
-    - "~/padrino/test:/app"
+    - "~/projects/test:/app"
   ports:
     - "3000:3000"
   links:

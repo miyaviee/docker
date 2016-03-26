@@ -8,7 +8,7 @@ elbacky:
   container_name: elbacky
   privileged: true
   volumes:
-    - "~/elbacky:/app"
+    - "~/projects/elbacky:/app"
   ports:
     - "80:80"
   links:
