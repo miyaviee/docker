@@ -2,18 +2,40 @@ require 'color_echo/get'
 
 module Diff
   class << self
-
     def set diff
       return diff if diff.empty?
       diff.map {|d| CE.ch(:red).get(d)}.compact
     end
 
-    def diff s1, s2
-      @word1 = s1
-      @word1 = s1.chars.to_a if s1.class == String
-      @word2 = s2
-      @word2 = s2.chars.to_a if s2.class == String
+    def diff a, b
+      return unless a.class == b.class
+      case a.class.to_s
+      when 'String'
+        a, b = is_string a, b
+      when 'Array'
+        a, b = is_array a, b
+      else
+        return
+      end
 
+      [a, b]
+    end
+
+    def is_array a, b
+      @word1 = a
+      @word2 = b
+      a, b = check
+      print a.join(','), b.join(',')
+    end
+
+    def is_string a, b
+      @word1 = a.chars.to_a
+      @word2 = b.chars.to_a
+      a, b = check
+      print a.join, b.join
+    end
+
+    def check
       w1 = []
       w2 = []
       loop do
@@ -69,6 +91,11 @@ module Diff
       end
 
       [d1, d2]
+    end
+
+    def print a, b
+      puts "A: #{a}"
+      puts "B: #{b}"
     end
   end
 end
