@@ -8,14 +8,10 @@ module Diff
     end
 
     def diff a, b
-      return unless a.class == b.class
-      case a.class.to_s
-      when 'String'
-        a, b = is_string a, b
-      when 'Array'
+      if a.class == Array
         a, b = is_array a, b
       else
-        return
+        a, b = is_string a, b
       end
 
       [a, b]
@@ -28,9 +24,14 @@ module Diff
       print a.join(','), b.join(',')
     end
 
+    def string_to_a var
+      return [] if var.nil?
+      return var.chars.to_a
+    end
+
     def is_string a, b
-      @word1 = a.chars.to_a
-      @word2 = b.chars.to_a
+      @word1 = string_to_a a
+      @word2 = string_to_a b
       a, b = check
       print a.join, b.join
     end
