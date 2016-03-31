@@ -8,7 +8,8 @@ RUN groupadd -g 1001 vagrant \
 && useradd -g 1001 -u 1001 vagrant
 
 RUN echo "vagrant	ALL=(ALL)	NOPASSWD: ALL" > /etc/sudoers.d/vagrant
-RUN sudo -u vagrant sudo gem install itamae
+ENV GEM_HOME /usr/local
+RUN gem install itamae
 
 WORKDIR /itamae
 CMD ["itamae", "local", "test.rb"]
