@@ -22,14 +22,14 @@ RUN gem update --system
 
 RUN gem install rake rspec capybara poltergeist --no-document
 
-RUN curl -SLO https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2 \
+RUN curl -LO https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2 \
 && tar jvxf phantomjs-2.1.1-linux-x86_64.tar.bz2 \
 && cp phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/bin \
 && rm -rf phantomjs-2.1.1-linux-x86_64*
 
 RUN cd /usr/share/fonts \
 && rm -rf ./* \
-&& curl -SLO https://osdn.jp/projects/mix-mplus-ipa/downloads/63545/migu-1m-20150712.zip \
+&& curl -LO https://osdn.jp/projects/mix-mplus-ipa/downloads/63545/migu-1m-20150712.zip \
 && unzip migu-1m-20150712.zip && rm -rf migu-1m-20150712.zip
 
 WORKDIR /app

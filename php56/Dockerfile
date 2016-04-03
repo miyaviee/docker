@@ -23,7 +23,7 @@ git \
 gcc-c++ \
 && yum clean all
 
-RUN curl -SLO https://www.pdflib.com/binaries/PDFlib/705/PDFlib-Lite-7.0.5p3.tar.gz \
+RUN curl -LO https://www.pdflib.com/binaries/PDFlib/705/PDFlib-Lite-7.0.5p3.tar.gz \
 && tar xvzf PDFlib-Lite-7.0.5p3.tar.gz \
 && cd PDFlib-Lite-7.0.5p3 && ./configure && make && make install
 
@@ -45,7 +45,7 @@ ENV CONFIG "\
 --with-config-file-path=/etc \
 --with-libdir=lib64"
 
-RUN curl -SLO http://jp2.php.net/distributions/php-${PHP_VERSION}.tar.gz \
+RUN curl -LO http://jp2.php.net/distributions/php-${PHP_VERSION}.tar.gz \
 && tar xvzf php-${PHP_VERSION}.tar.gz \
 && cd php-${PHP_VERSION} && ./configure ${CONFIG} && make && make install
 
