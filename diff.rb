@@ -2,83 +2,101 @@ require 'color_echo/get'
 
 module Diff
   class << self
+    def set diff
+      return diff if diff.empty?
+      diff.map {|d| CE.ch(:red).get(d)}.compact
+    end
 
-    def string_to_a s
-      a = []
-
-      return a if s.nil?
-
-      s.each_char do |c|
-        a << c
+    def diff a, b
+      if a.class == Array
+        a, b = is_array a, b
+      else
+        a, b = is_string a, b
       end
 
-      return a
+      [a, b]
     end
 
-    def set_diff w
-      return w if w == ''
-      return CE.ch(:red).get(w)
+    def is_array a, b
+      @word1 = a
+      @word2 = b
+      a, b = check
+      print a.join(','), b.join(',')
     end
 
-    def diff s1, s2
-      @word1 = string_to_a s1
-      @word2 = string_to_a s2
+    def string_to_a var
+      return [] if var.nil?
+      return var.chars.to_a
+    end
 
-      w1 = ''
-      w2 = ''
+    def is_string a, b
+      @word1 = string_to_a a
+      @word2 = string_to_a b
+      a, b = check
+      print a.join, b.join
+    end
+
+    def check
+      w1 = []
+      w2 = []
       loop do
-        d1, d2 = get_diff
-        w1 += set_diff d1
-        w2 += set_diff d2
+        d1, d2 = get
+        w1.concat set d1
+        w2.concat set d2
 
         break if @word1.empty? or @word2.empty?
 
-        w1 += @word1.shift
-        w2 += @word2.shift
+        w1 << @word1.shift
+        w2 << @word2.shift
       end
 
-      w1 += set_diff @word1.join
-      w2 += set_diff @word2.join
+      w1.concat set @word1
+      w2.concat set @word2
 
-      return w1, w2
+      [w1, w2]
     end
 
-    def get_diff
-      d1 = ''
-      d2 = ''
+    def get
+      d1 = []
+      d2 = []
       while @word1.first != @word2.first
         break if @word1.empty? or @word2.empty?
         k1 = @word1.find_index @word2.first
         k2 = @word2.find_index @word1.first
 
         if k1 == k2
-          d1 += @word1.shift
-          d2 += @word2.shift
+          d1 << @word1.shift
+          d2 << @word2.shift
           next
         end
 
         if k1.nil?
-          d2 += @word2.shift
+          d2 << @word2.shift
           next
         end
 
         if k2.nil?
-          d1 += @word1.shift
+          d1 << @word1.shift
           next
         end
 
         if k1 > k2
-          k2.times do |n|
-            d2 += @word2.shift
+          k2.times do
+            d2 << @word2.shift
           end
         else
-          k1.times do |n|
-            d1 += @word1.shift
+          k1.times do
+            d1 << @word1.shift
           end
         end
       end
 
-      return d1, d2
+      [d1, d2]
+    end
+
+    def print a, b
+      puts "A: #{a}"
+      puts "B: #{b}"
     end
   end
 end
