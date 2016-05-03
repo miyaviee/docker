@@ -43,11 +43,15 @@ ENV CONFIG "\
 --with-mcrypt \
 --enable-zip \
 --with-config-file-path=/etc \
+--enable-pcntl \
 --with-libdir=lib64"
 
 RUN curl -LO http://jp2.php.net/distributions/php-${PHP_VERSION}.tar.gz \
 && tar xvzf php-${PHP_VERSION}.tar.gz \
 && cd php-${PHP_VERSION} && ./configure ${CONFIG} && make && make install
+
+RUN pecl install xdebug \
+rm -rf /tmp/pear
 
 RUN curl -sS https://getcomposer.org/installer | php \
 && mv composer.phar /usr/local/bin/composer
