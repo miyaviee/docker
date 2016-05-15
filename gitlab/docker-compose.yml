@@ -1,0 +1,12 @@
+runner-config:
+  image: busybox
+  container_name: runner-config
+  volumes:
+    - /etc/gitlab-runner
+runner:
+  image: gitlab/gitlab-runner
+  container_name: gitlab-runner
+  volumes_from:
+    - runner-config
+  restart: always
+

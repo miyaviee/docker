@@ -6,6 +6,8 @@ elbacky_postgres:
 elbacky:
   build: .
   container_name: elbacky
+  environment:
+    - "DATABASE_URL:db://postgres:@postgres/postgres"
   privileged: true
   volumes:
     - "~/projects/elbacky:/app"
