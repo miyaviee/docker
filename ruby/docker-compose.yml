@@ -3,13 +3,15 @@ postgres:
   container_name: postgres
   privileged: true
   command: postgres
-padrino:
+rubyapp:
   build: .
-  container_name: padrino
+  container_name: ruby
   privileged: true
   volumes:
-    - "~/projects/test:/app"
+    - "~/projects/ruby:/app"
   ports:
     - "3000:3000"
+  environment:
+    - "db://postgres:@postgres/postgres"
   links:
     - postgres
